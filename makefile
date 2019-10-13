@@ -7,15 +7,16 @@ SRCPATH = ./src/
 main: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)io.o $(OBJPATH)grille.o
 	gcc $(FLAGS) $^ -o main
 
-./obj/main.o: ./src/main.c ./header/grille.h ./header/io.h ./header/jeu.h
-	gcc $(FLAGS) -c ./src/main.c -o $@
+./obj/main.o: $(SRCPATH)main.c $(HEADPATH)grille.h $(HEADPATH)io.h $(HEADPATH)jeu.h
+	mkdir -p $(OBJPATH)
+	gcc $(FLAGS) -c $(SRCPATH)main.c -o $@
 
 
-./obj/%.o: ./src/%.c ./header/%.h
+./obj/%.o: $(SRCPATH)%.c $(HEADPATH)%.h
 	gcc $(FLAGS) -c $< -o $@
 
 clean:
-	rm $(OBJPATH)(wildcard *)
+	rm $(OBJPATH)(wildcard *) main
 
 dist:
-	tar cfJ jeuVide.tar.xz ./
+	tar cfJ zegameoflife.tar.xz ./

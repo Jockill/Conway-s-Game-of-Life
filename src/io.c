@@ -57,7 +57,7 @@ void debut_jeu(grille *g, grille *gc){
 			}
 			case 'n' :
 			pass = 0;
-				do{
+				do{ //TODO : Placer le tout dans une fonction.
 					printf("\e[1;1H\e[2J"); //Clear
 					printf("Veuillez entrer le numero de la grille a charger, ou q pour quitter : ");
 					scanf("%s", num);
