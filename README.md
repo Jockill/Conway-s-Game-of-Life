@@ -1,3 +1,8 @@
 # zEgAmEoFlIFe
 
-Projet de Tech. Dev sur le jeu de la vie
+TODO
+====
+ * Faire le README.
+ * Ecrire la fonction de changement de grille.
+ * Ameliorer la doc.
+ * Ajouter l'easter egg.
