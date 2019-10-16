@@ -3,6 +3,7 @@
 void alloue_grille(int l, int c, grille* g){
 	g->nbl = l;
 	g->nbc = c;
+	g->generation = 0;
 
 	g->cellules = malloc(sizeof(int*)*l);
 	for(int i=0; i<l; i++) g->cellules[i] = calloc(c+1, sizeof(int)*c);

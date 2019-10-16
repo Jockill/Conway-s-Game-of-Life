@@ -1,12 +1,8 @@
 #include "../header/io.h"
+#include "../header/jeu.h"
 #include <string.h>
 #include <unistd.h>
 
-void bellePause(){
-	printf("\nAppuyez sur entrée pour continuer...\n");
-	getchar();
-	getchar();
-}
 
 void affiche_trait (int c){
 	int i;
@@ -15,74 +11,87 @@ void affiche_trait (int c){
 	return;
 }
 
-void affiche_ligne (int c, int* ligne){
+void affiche_ligne (int c, int* ligne, int vieillissement){
 	int i;
 	for (i=0; i<c; ++i)
-		if (ligne[i] == 0 ) printf ("|   "); else printf ("| O ");
+		if (ligne[i] == 0 ) printf ("|   ");
+		else
+		{
+			if (vieillissement==1) printf ("| %d ", ligne[i]);
+			else printf ("| x ");
+		}
 	printf("|\n");
 	return;
 }
 
-void affiche_grille (grille g){
+void affiche_grille (grille g, int vieillissement){
 	int i, l=g.nbl, c=g.nbc;
-	printf("\n");
 	affiche_trait(c);
 	for (i=0; i<l; ++i) {
-		affiche_ligne(c, g.cellules[i]);
+		affiche_ligne(c, g.cellules[i], vieillissement);
 		affiche_trait(c);
 	}
 	printf("\n");
 	return;
 }
 
-void efface_grille (grille g){
-	printf("\n\e[%dA",g.nbl*2 + 5);
+void afficheBool(int b){
+	if (b == 1) printf("Oui");
+	else if (b == 0) printf("Non");
+	else printf("afficheBool : ERREUR");
 }
 
-void debut_jeu(grille *g, grille *gc){
-	char c = getchar();
-	int pass = 0;
-	char nom[25] = "grilles/grille";
-	char num[3] = "";
+void affiche_header(grille g, int cyclique, int vieillissement){
+	printf("Generation : %d\nCalcul cyclique : ", g.generation);
+	afficheBool(cyclique);
+	printf("\nPrise en compte du vieillissement : ");
+	afficheBool(vieillissement);
+	printf("\n");
+}
 
-	while (c != 'q') // touche 'q' pour quitter
+void clear(){
+	printf("\e[1;1H\e[2J");
+}
+/*
+void efface_grille (grille g){
+	printf("\n\e[%dA",g.nbl*3 + 5);
+}
+*/
+void debut_jeu(grille *g, grille *gc){
+	clear();
+	int cyclique = 0;
+	int vieillissement = 0;
+	affiche_header(*g, cyclique, vieillissement);
+	affiche_grille(*g, vieillissement);
+
+	char c = getchar();
+
+	do
 	{
 		switch (c) {
+			case 'v' :
+			{ //Touche v pour activer/désactiver l'affichage du vieillissement.
+				vieillissement = boolSwitch(vieillissement);
+				break;
+			}
+			case 'c' :
+			{//Active/Désactive le calcul cyclique des voisins.
+				cyclique = boolSwitch(cyclique);
+				break;
+			}
 			case '\n' :
 			{ // touche "entree" pour évoluer
-				evolue(g,gc);
-				efface_grille(*g);
-				affiche_grille(*g);
+				evolue(g,gc,cyclique,vieillissement);
+				clear();
+				affiche_header(*g, cyclique, vieillissement);
+				affiche_grille(*g, vieillissement);
 				break;
 			}
 			case 'n' :
-			pass = 0;
-				do{ //TODO : Placer le tout dans une fonction.
-					printf("\e[1;1H\e[2J"); //Clear
-					printf("Veuillez entrer le numero de la grille a charger, ou q pour quitter : ");
-					scanf("%s", num);
-
-					if(num[0] == 'q') return;
-
-					strcat(nom, num);
-					strcat(nom, ".txt");
-
-					if(access(nom, F_OK) != -1){ //Check si le nom entré existe
-						libere_grille(g);
-						libere_grille(gc);
-						init_grille_from_file(nom, g);
-						alloue_grille(g->nbl, g->nbc, gc);
-						pass = 1;
-					}
-					else{
-						strcpy(nom, "grilles/grille");
-						strcpy(num, "");
-						printf("La grille que vous cherchez n'existe pas.\nVeuillez vous assurer : \n1. Que vous l'avez bien enregistrée dans le format 'grille<numero>.txt'\n2. Que vous l'avez enregistrée dans <dossier_racine_du_jeu>/grilles\n");
-						bellePause();
-						printf("\e[1;1H\e[2J"); //Clear
-					}
-				}while(pass == 0);
-			break;
+			{ //Touche n pour changer de grille.
+				changementGrille(g, gc);
+				break;
+			}
 			default :
 			{ // touche non traitée
 				printf("\n\e[1A");
@@ -90,6 +99,6 @@ void debut_jeu(grille *g, grille *gc){
 			}
 		}
 		c = getchar();
-	}
+	} while (c != 'q'); // touche 'q' pour quitter
 	return;
 }

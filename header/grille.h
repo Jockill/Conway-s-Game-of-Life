@@ -21,7 +21,8 @@ typedef struct {
   int nbl; /**< Nombre de lignes. */
   int nbc; /**< Nombre de colonnes. */
   int** cellules; /**< Tableau a 2 dimensions représentant la grille. */
-} grille;s
+  int generation; /**< Numero de la génération de la grille. */
+} grille;
 
 // alloue une grille de taille l*c, et initialise toutes les cellules à mortes
 /**
@@ -71,12 +72,16 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
 // teste si la cellule (i,j) de la grille g est vivante
 /**
   \fn est_vivante
-  \brief Teste si la cellule (i,j) de la grille g est vivante.
+  \brief Teste si la cellule (i,j) de la grille g est vivante. Renvoie 1 si c'est le cas, 0 sinon.
+  \brief modifie en 2.x pour permettre l'implementation du vieillissement
   \param int i : Index de la colonne sur laquelle se trouve la cellule.
   \param int j : Index de la ligne sur laquelle se trouve la cellule.
   \param grille g : Grille sur laquelle agit la fonction.
 */
-static inline int est_vivante(int i, int j, grille g){return g.cellules[i][j] == 1;}
+static inline int est_vivante(int i, int j, grille g){
+  if (g.cellules[i][j] > 0) return 1;
+  else return 0;
+}
 
 // recopie gs dans gd (sans allocation)
 /**

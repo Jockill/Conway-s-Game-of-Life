@@ -11,11 +11,9 @@
 #include "grille.h"
 #include "jeu.h"
 
-/**
-  \fn bellePause
-  \brief Permet de forcer une pause au programme, attendant un input utilisateur pour continuer.
-*/
-void bellePause();
+void clear();
+
+void afficheBool(int b);
 
 // affichage d'un trait horizontal
 /**
@@ -32,7 +30,7 @@ void affiche_trait (int c);
   \param int c : Nombre de cases à afficher. N.B: L'affichage commence à la première case.
   \param int* ligne : Pointeur vers la ligne à afficher.
 */
-void affiche_ligne (int c, int* ligne);
+void affiche_ligne (int c, int* ligne, int vieillissement);
 
 // affichage d'une grille
 /**
@@ -40,7 +38,7 @@ void affiche_ligne (int c, int* ligne);
   \brief Affichage d'une grille.
   \param grille g : Grille à afficher.
 */
-void affiche_grille (grille g);
+void affiche_grille (grille g, int vieillissement);
 
 // effacement d'une grille
 /**

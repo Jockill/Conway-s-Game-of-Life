@@ -9,6 +9,17 @@
 
 #include "grille.h"
 
+/**
+  \fn bellePause
+  \brief Permet de forcer une pause au programme, attendant un input utilisateur pour continuer.
+*/
+void bellePause();
+
+//TODO : DOC
+void changementGrille(grille *g, grille *gc);
+
+int boolSwitch(int b);
+
 // modulo modifié pour traiter correctement les bords i=0 et j=0
 // dans le calcul des voisins avec bords cycliques
 /**
@@ -36,7 +47,8 @@ int compte_voisins_vivants (int i, int j, grille g);
   \brief Fait évoluer la grille g d'une génération.
   \param grille* g : Grille à faire évoluer.
   \param grille* gc: Grille servant de copie a 'g'.
+  \param int cyclique : Int agissant comme un booléen permettant de savoir si il faut calculer les voisins de maniere cyclique.
 */
-void evolue (grille *g, grille *gc);
+void evolue (grille *g, grille *gc, int cyclique, int vieillissement);
 
 #endif
