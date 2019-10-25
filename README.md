@@ -3,7 +3,7 @@ The AMC: Game of Life
 - - -
 =MANUEL D'UTILISATION=
 ---
-###Liste des commandes en jeu#
+###Liste des commandes en jeu
  * _Entrée_ : Permet d'avancer d'une génération.
  * _n_ : Permet de charger une nouvelle grille.
  * _v_ : Permet d'activer/désactiver le vieillissement des cellules.  _Quand ce mode est activé, les cellules mourront une fois la 8e génération passée._
