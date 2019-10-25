@@ -1,3 +1,9 @@
+/**
+	\file io.c
+	\brief Source contenant le corps des fonctions de io.h
+	\author JOCHYMSKI Hugo, powered by Unistra.
+*/
+
 #include "../header/io.h"
 #include "../header/jeu.h"
 #include <string.h>
@@ -18,7 +24,7 @@ void affiche_ligne (int c, int* ligne, int vieillissement){
 		else
 		{
 			if (vieillissement==1) printf ("| %d ", ligne[i]);
-			else printf ("| x ");
+			else printf ("| ¤ ");
 		}
 	printf("|\n");
 	return;
@@ -52,11 +58,7 @@ void affiche_header(grille g, int cyclique, int vieillissement){
 void clear(){
 	printf("\e[1;1H\e[2J");
 }
-/*
-void efface_grille (grille g){
-	printf("\n\e[%dA",g.nbl*3 + 5);
-}
-*/
+
 void debut_jeu(grille *g, grille *gc){
 	clear();
 	int cyclique = 0;

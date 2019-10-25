@@ -1,3 +1,9 @@
+/**
+	\file main.c
+	\brief Source contenant le main.
+	\author JOCHYMSKI Hugo, powered by Unistra.
+*/
+
 #include <stdio.h>
 
 #include "../header/grille.h"

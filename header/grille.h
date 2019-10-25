@@ -12,7 +12,7 @@
 #include <assert.h>
 
 /**
-  \struct Grille
+  \struct grille
   \brief Structure permettant de créer et d'utiliser des grilles.
 */
 
@@ -26,7 +26,6 @@ typedef struct {
 
 // alloue une grille de taille l*c, et initialise toutes les cellules à mortes
 /**
-  \fn alloue_grille
   \brief Alloue une grille de taille l*c, et initialise toutes les cellules à mortes.
   \param int l : Nombre de lignes de la grille.
   \param int c : Nombre de colonnes de la grille.
@@ -36,7 +35,6 @@ void alloue_grille (int l, int c, grille* g);
 
 // libère une grille
 /**
-  \fn librer_grille
   \brief Libère une grille.
   \param grille* g : Pointeur vers la grille à libérer.
 */
@@ -44,7 +42,6 @@ void libere_grille (grille* g);
 
 // alloue et initalise la grille g à partir d'un fichier
 /**
-  \fn init_grille_from_file
   \brief Alloue et initalise une grille à partir d'un fichier.
   \param char* filename : Fichier à utiliser pour l'initalisation.
   \param grille* g : Pointeur vers la grille à initialiser.
@@ -53,7 +50,6 @@ void init_grille_from_file (char * filename, grille* g);
 
 // rend vivante la cellule (i,j) de la grille g
 /**
-  \fn set_vivante
   \brief Rend vivante la cellule (i,j) de la grille g.
   \param int i : Index de la colonne sur laquelle se trouve la cellule.
   \param int j : Index de la ligne sur laquelle se trouve la cellule.
@@ -62,7 +58,6 @@ void init_grille_from_file (char * filename, grille* g);
 static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
 // rend morte la cellule (i,j) de la grille g
 /**
-  \fn set_morte
   \brief Rend morte la cellule (i,j) de la grille g.
   \param int i : Index de la colonne sur laquelle se trouve la cellule.
   \param int j : Index de la ligne sur laquelle se trouve la cellule.
@@ -71,7 +66,6 @@ static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
 static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
 // teste si la cellule (i,j) de la grille g est vivante
 /**
-  \fn est_vivante
   \brief Teste si la cellule (i,j) de la grille g est vivante. Renvoie 1 si c'est le cas, 0 sinon.
   \brief modifie en 2.x pour permettre l'implementation du vieillissement
   \param int i : Index de la colonne sur laquelle se trouve la cellule.
@@ -85,7 +79,6 @@ static inline int est_vivante(int i, int j, grille g){
 
 // recopie gs dans gd (sans allocation)
 /**
-  \fn copie_grille
   \brief Recopie gs dans gd sans allocation.
   \param grille gs : Grille source.
   \param grille gd : Grille destination.

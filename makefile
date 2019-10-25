@@ -16,7 +16,10 @@ main: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)io.o $(OBJPATH)grille.o
 	gcc $(FLAGS) -c $< -o $@
 
 clean:
-	rm $(OBJPATH)(wildcard *) main
+	rm -r $(OBJPATH)* main doc
 
 dist:
 	tar cfJ zegameoflife.tar.xz ./
+
+doc:
+	doxygen Doxyfile

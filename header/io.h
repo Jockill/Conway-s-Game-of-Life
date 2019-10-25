@@ -17,7 +17,6 @@ void afficheBool(int b);
 
 // affichage d'un trait horizontal
 /**
-  \fn affiche_trait
   \brief Affichage d'un trait horizontal.
   \param int c : Nombre de traits à afficher.
 */
@@ -25,7 +24,6 @@ void affiche_trait (int c);
 
 // affichage d'une ligne de la grille
 /**
-  \fn affiche_ligne
   \brief Affichage d'une ligne de la grille.
   \param int c : Nombre de cases à afficher. N.B: L'affichage commence à la première case.
   \param int* ligne : Pointeur vers la ligne à afficher.
@@ -34,23 +32,43 @@ void affiche_ligne (int c, int* ligne, int vieillissement);
 
 // affichage d'une grille
 /**
-  \fn affiche_grille
   \brief Affichage d'une grille.
   \param grille g : Grille à afficher.
 */
 void affiche_grille (grille g, int vieillissement);
 
+/**
+	\brief Affichage de oui ou de non en fonction du booléen passé en parametre
+	\pre b doit valoir 1 ou 0
+	\param int b : Entier se comportant comme un booléen.
+*/
+void afficheBool(int b);
+
+/**
+  \brief Affiche le panneau d'informations : generation, cyclique, vieillissement
+  \param grille g : grille en jeu
+  \param int cyclique : Booléen indiquant si le calcul cyclique est 1: activé, 0: désactivé
+  \param int vieillissement : Booléen indiquant si 1: la prise en compte du vieillissement est 1: activée, 0: désactivé
+*/
+void affiche_header(grille g, int cyclique, int vieillissement);
+
 // effacement d'une grille
 /**
-  \fn efface_grille
   \brief Efface une grille affichée à l'écran.
   \param grille g : Grille affichée à l'écran avant l'appel.
+  \deprecated Dépendant de la taille du terminal pour fonctionner correctement.
+  \sa clear
 */
 void efface_grille (grille g);
 
+/**
+  \brief Nouvelle forme de efface_grille réglant les soucis d'affichage causés par celle-ci.
+  \sa efface_grille
+*/
+void clear();
+
 // debute le jeu
 /**
-  \fn debut_jeu
   \brief Débute le jeu.
   \param grille* g : Pointeur vers la grille permettant de débuter le jeu.
   \param grille* gc : Pointeur vers la grille qui sera utilisée pour copier la grille de jeu.

@@ -1,3 +1,9 @@
+/**
+	\file jeu.c
+	\brief Source contenant le corps des fonctions de jeu.h
+	\author JOCHYMSKI Hugo, powered by Unistra.
+*/
+
 #include "../header/jeu.h"
 #include <string.h>
 #include <unistd.h>

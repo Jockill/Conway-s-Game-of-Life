@@ -1,3 +1,9 @@
+/**
+	\file grille.c
+	\brief Source contenant le corps des fonctions de grille.h
+	\author JOCHYMSKI Hugo, powered by Unistra.
+*/
+
 #include "../header/grille.h"
 
 void alloue_grille(int l, int c, grille* g){
