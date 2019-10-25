@@ -105,4 +105,4 @@ X   : Correspond au niveau le plus haut accompli grâce à ce code.
 
 Y   : Correspond au numéro de l'update .
 
-NDY : Pas toujours présent, est utilisé si la version en cours ne possède pas de documentation complète.
+NDY : Facultatif, est utilisé si la version en cours ne possède pas de documentation complète.
