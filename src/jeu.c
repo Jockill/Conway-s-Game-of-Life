@@ -98,7 +98,7 @@ void evolue (grille *g, grille *gc, int cyclique, int vieillissement){
 
 void changementGrille(grille *g, grille *gc){
 	int pass = 0;
-	char nom[25] = "grilles/grille";
+	char nom[30] = "grilles/grille_";
 	char num[3] = "";
 
 	do

@@ -36,12 +36,13 @@ _Ligne 7_ : Laissez une ligne vide.
 _Ligne 8_ : Terminez le document par une ligne contenant uniquement un 0.
 
 
-Enregistrez le document en __.txt__, dans le dossier __grilles__.
+Enregistrez le document en __*.txt__, dans le dossier __grilles__.
 Le nom doit être formaté comme suit :
 ~~~
-grille<numero>.txt
+grille_<nom>.txt
 ~~~
 
+Où <nom> peut être n'importe quelle chaine de caractère que vous souhaitez
 - - -
 
 
@@ -79,18 +80,17 @@ make clean
 
 =TODO=
 ---
- * Faire le README.
- * Ajouter le Doxyfile au depot.
  * Remplacer les variables booléennes vieillissement et cyclique pour les inclures dans la structure grille.
  * Faire un menu principal.
  * Ajouter un auto-play.
  * Index de selection de grilles, menu principal.
+ * CHANGELOG
  * Ajouter l'easter egg.
 
 
 NOTES
 ---
- * La grille avance d'un pas dès le chargement.
+ * On ne peut pas quitter le jeu dès le chargement de la première grille.
  * Le fait que l'age des cellules ne soit pas remis a 0 lors de l'activation/désactivation de la vieilliesse est volontaire.
 
 SYSTEME DE VERSIONNEMENT

@@ -5,7 +5,7 @@ SRCPATH = ./src/
 
 
 main: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)io.o $(OBJPATH)grille.o
-	gcc $(FLAGS) $^ -o main
+	gcc $(FLAGS) $^ -o jeuDeLaVie
 
 ./obj/main.o: $(SRCPATH)main.c $(HEADPATH)grille.h $(HEADPATH)io.h $(HEADPATH)jeu.h
 	mkdir -p $(OBJPATH)
@@ -16,10 +16,10 @@ main: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)io.o $(OBJPATH)grille.o
 	gcc $(FLAGS) -c $< -o $@
 
 clean:
-	rm -r $(OBJPATH)* main doc
+	rm -r $(OBJPATH)* jeuDeLaVie doc
 
 dist:
-	tar cfJ zegameoflife.tar.xz ./
+	tar cfJ jeuDeLaVie.tar.xz ./
 
 doc:
 	doxygen Doxyfile
