@@ -88,14 +88,12 @@ make clean
       ```
  * Enlever l'amélioration de l'user expérience sur le nom de grilles.
  * Ajouter un test apres malloc/calloc (vérifier si la mémoire a bien été allouée)
- * Faire un menu principal.
  * Ajouter un auto-play.
- * Ajouter l'easter egg.
+ * Faire un menu principal.
 
 
 NOTES
 ---
- * On ne peut pas quitter le jeu dès le chargement de la première grille.
  * Le fait que l'age des cellules ne soit pas remis a 0 lors de l'activation/désactivation de la vieilliesse est volontaire.
 
 SYSTEME DE VERSIONNEMENT
