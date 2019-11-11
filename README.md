@@ -80,7 +80,6 @@ make clean
 
 =TODO=
 ---
- * Regler le fait que la premiere pression d'entrée continue le programme.
  * Makefile: utiliser vpath a la place des user var.
       - ```
       vpath %.c ../src

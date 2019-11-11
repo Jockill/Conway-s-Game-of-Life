@@ -101,7 +101,7 @@ void debut_jeu(grille *g, grille *gc){
 				break;
 			}
 		}
-		c = getchar();
+		//c = getchar();
 	} while (c != 'q'); // touche 'q' pour quitter
 	return;
 }
