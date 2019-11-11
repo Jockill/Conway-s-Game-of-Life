@@ -88,7 +88,6 @@ make clean
         gcc $<
       ```
  * Enlever l'amélioration de l'user expérience sur le nom de grilles.
- * Remplacer les variables booléennes vieillissement et cyclique pour les inclures dans la structure grille.
  * Ajouter un test apres malloc/calloc (vérifier si la mémoire a bien été allouée)
  * Faire un menu principal.
  * Ajouter un auto-play.
