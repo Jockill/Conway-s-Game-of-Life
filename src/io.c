@@ -17,24 +17,25 @@ void affiche_trait (int c){
 	return;
 }
 
-void affiche_ligne (int c, int* ligne, int vieillissement){
+void affiche_ligne (int c, int* ligne, grille g){
 	int i;
 	for (i=0; i<c; ++i)
 		if (ligne[i] == 0 ) printf ("|   ");
 		else
 		{
-			if (vieillissement==1) printf ("| %d ", ligne[i]);
+			if (ligne[i] == -1) printf("| X ");
+			else if (g.vieillissement==1) printf ("| %d ", ligne[i]);
 			else printf ("| ¤ ");
 		}
 	printf("|\n");
 	return;
 }
 
-void affiche_grille (grille g, int vieillissement){
+void affiche_grille (grille g){
 	int i, l=g.nbl, c=g.nbc;
 	affiche_trait(c);
 	for (i=0; i<l; ++i) {
-		affiche_ligne(c, g.cellules[i], vieillissement);
+		affiche_ligne(c, g.cellules[i], g);
 		affiche_trait(c);
 	}
 	printf("\n");
@@ -47,11 +48,11 @@ void afficheBool(int b){
 	else printf("afficheBool : ERREUR");
 }
 
-void affiche_header(grille g, int cyclique, int vieillissement){
+void affiche_header(grille g){
 	printf("Generation : %d\nCalcul cyclique : ", g.generation);
-	afficheBool(cyclique);
+	afficheBool(g.cyclique);
 	printf("\nPrise en compte du vieillissement : ");
-	afficheBool(vieillissement);
+	afficheBool(g.vieillissement);
 	printf("\n");
 }
 
@@ -61,10 +62,10 @@ void clear(){
 
 void debut_jeu(grille *g, grille *gc){
 	clear();
-	int cyclique = 0;
-	int vieillissement = 0;
-	affiche_header(*g, cyclique, vieillissement);
-	affiche_grille(*g, vieillissement);
+	g->cyclique = 0;
+	g->vieillissement = 0;
+	affiche_header(*g);
+	affiche_grille(*g);
 
 	char c = getchar();
 
@@ -73,20 +74,20 @@ void debut_jeu(grille *g, grille *gc){
 		switch (c) {
 			case 'v' :
 			{ //Touche v pour activer/désactiver l'affichage du vieillissement.
-				vieillissement = boolSwitch(vieillissement);
+				g->vieillissement = !g->vieillissement;
 				break;
 			}
 			case 'c' :
 			{//Active/Désactive le calcul cyclique des voisins.
-				cyclique = boolSwitch(cyclique);
+				g->cyclique = !g->cyclique;
 				break;
 			}
 			case '\n' :
 			{ // touche "entree" pour évoluer
-				evolue(g,gc,cyclique,vieillissement);
+				evolue(g,gc);
 				clear();
-				affiche_header(*g, cyclique, vieillissement);
-				affiche_grille(*g, vieillissement);
+				affiche_header(*g);
+				affiche_grille(*g);
 				break;
 			}
 			case 'n' :

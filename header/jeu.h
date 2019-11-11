@@ -52,8 +52,7 @@ int compte_voisins_vivants (int i, int j, grille g);
   \brief Fait évoluer la grille g d'une génération.
   \param grille* g : Grille à faire évoluer.
   \param grille* gc: Grille servant de copie a 'g'.
-  \param int cyclique : Int agissant comme un booléen permettant de savoir si il faut calculer les voisins de maniere cyclique.
 */
-void evolue (grille *g, grille *gc, int cyclique, int vieillissement);
+void evolue (grille *g, grille *gc);
 
 #endif

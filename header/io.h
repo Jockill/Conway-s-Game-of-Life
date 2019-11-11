@@ -28,14 +28,14 @@ void affiche_trait (int c);
   \param int c : Nombre de cases à afficher. N.B: L'affichage commence à la première case.
   \param int* ligne : Pointeur vers la ligne à afficher.
 */
-void affiche_ligne (int c, int* ligne, int vieillissement);
+void affiche_ligne (int c, int* ligne, grille g);
 
 // affichage d'une grille
 /**
   \brief Affichage d'une grille.
   \param grille g : Grille à afficher.
 */
-void affiche_grille (grille g, int vieillissement);
+void affiche_grille (grille g);
 
 /**
 	\brief Affichage de oui ou de non en fonction du booléen passé en parametre
@@ -47,10 +47,8 @@ void afficheBool(int b);
 /**
   \brief Affiche le panneau d'informations : generation, cyclique, vieillissement
   \param grille g : grille en jeu
-  \param int cyclique : Booléen indiquant si le calcul cyclique est 1: activé, 0: désactivé
-  \param int vieillissement : Booléen indiquant si 1: la prise en compte du vieillissement est 1: activée, 0: désactivé
 */
-void affiche_header(grille g, int cyclique, int vieillissement);
+void affiche_header(grille g);
 
 // effacement d'une grille
 /**

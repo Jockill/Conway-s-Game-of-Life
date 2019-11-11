@@ -19,7 +19,7 @@ clean:
 	rm -r $(OBJPATH)* jeuDeLaVie doc
 
 dist:
-	tar cfJ jeuDeLaVie.tar.xz ./
+	tar cfJ jeuDeLaVie.tar.xz ./src/ ./header/ ./data/ ./Doxyfile ./makefile ./README.md ./CHANGELOG.md
 
 doc:
 	doxygen Doxyfile

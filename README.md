@@ -80,11 +80,18 @@ make clean
 
 =TODO=
 ---
+ * Regler le fait que la premiere pression d'entrée continue le programme.
+ * Makefile: utiliser vpath a la place des user var.
+      - ```
+      vpath %.c ../src
+      grille.o: grille.c
+        gcc $<
+      ```
+ * Enlever l'amélioration de l'user expérience sur le nom de grilles.
  * Remplacer les variables booléennes vieillissement et cyclique pour les inclures dans la structure grille.
+ * Ajouter un test apres malloc/calloc (vérifier si la mémoire a bien été allouée)
  * Faire un menu principal.
  * Ajouter un auto-play.
- * Index de selection de grilles, menu principal.
- * CHANGELOG
  * Ajouter l'easter egg.
 
 

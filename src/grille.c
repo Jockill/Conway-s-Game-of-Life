@@ -25,9 +25,9 @@ void libere_grille(grille* g){
 void init_grille_from_file (char * filename, grille* g){
 	FILE * pfile = NULL;
 	pfile = fopen(filename, "r");
-	assert (pfile != NULL);
+	assert (pfile != NULL); //Stop le programme si pfile == NULL
 
-	int i,j,n,l,c,vivantes=0;
+	int i,j,n,l,c,vivantes,nonViable=0;
 
 	fscanf(pfile, "%d", & l);
 	fscanf(pfile, "%d", & c);
@@ -39,6 +39,13 @@ void init_grille_from_file (char * filename, grille* g){
 		fscanf(pfile, "%d", & i);
 		fscanf(pfile, "%d", & j);
 		set_vivante(i,j,*g);
+	}
+
+	fscanf(pfile, "%d", &nonViable);
+	for(n=0; n<nonViable; n++){
+		fscanf(pfile, "%d", &i);
+		fscanf(pfile, "%d", &j);
+		set_non_viable(i,j,*g);
 	}
 
 	fclose (pfile);

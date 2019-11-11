@@ -57,7 +57,7 @@ int compte_voisins_vivants_nc (int i, int j, grille g){ //TODO: optimisable ! mo
 	return v;
 }
 
-void evolue (grille *g, grille *gc, int cyclique, int vieillissement){
+void evolue (grille *g, grille *gc){
 	copie_grille (*g,*gc); // copie temporaire de la grille
 	int i,j,l=g->nbl, c = g->nbc,v;
 	g->generation = g->generation+1;
@@ -65,27 +65,26 @@ void evolue (grille *g, grille *gc, int cyclique, int vieillissement){
 	{
 		for (j=0; j<c; ++j)
 		{//Comptage des voisins
-			if(cyclique == 1)	v = compte_voisins_vivants (i, j, *gc);
+			if(g->cyclique == 1)	v = compte_voisins_vivants (i, j, *gc);
 			//else v = compte_voisins_vivants_nc(i, j, *gc);
 			else {
 				int (*compte) (int, int, grille) = &compte_voisins_vivants_nc;
 				v = (*compte) (i,j,*gc);
 			}
 
-			if (est_vivante(i,j,*g))
-			{ //est en vie
-				if((v == 2 || v == 3) && g->cellules[i][j] < 8)
-				{ //reste vivante
-					if (vieillissement == 1)
-					{//vieillit
-						g->cellules[i][j] = g->cellules[i][j]+1;
+			if(est_vivante(i,j,*g))
+			{
+					if (v == 2 || v == 3)
+					{
+						if (g->vieillissement)
+						{
+							g->cellules[i][j] = g->cellules[i][j]+1;
+							if (g->cellules[i][j] == 8) set_morte(i,j,*g);
+						}
 					}
-				}
-				else
-				{
-					set_morte(i,j,*g);
-				}
+					else set_morte(i,j,*g);
 			}
+
 
 			else
 			{ // evolution d'une cellule morte

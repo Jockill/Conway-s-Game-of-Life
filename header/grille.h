@@ -20,8 +20,10 @@
 typedef struct {
   int nbl; /**< Nombre de lignes. */
   int nbc; /**< Nombre de colonnes. */
-  int** cellules; /**< Tableau a 2 dimensions représentant la grille. */
+  int** cellules; /**< Pointeur vers un tableau d'entiers. La valeur détermine l'état de la cellule. -1: Cellule non viable. 0: Cellule morte. 1: Cellule en vie, ayant 1 an si le vieillissement est actif.*/
   int generation; /**< Numero de la génération de la grille. */
+  int cyclique;
+  int vieillissement;
 } grille;
 
 // alloue une grille de taille l*c, et initialise toutes les cellules à mortes
@@ -64,6 +66,13 @@ static inline void set_vivante(int i, int j, grille g){g.cellules[i][j] = 1;}
   \param grille g : Grille sur laquelle agit la fonction.
 */
 static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
+/**
+  \brief Rend non viable la cellule (i,j) de la grille g.
+  \param int i : Index de la colonne sur laquelle se trouve la cellule.
+  \param int j : Index de la ligne sur laquelle se trouve la cellule.
+  \param grille g : Grille sur laquelle agit la fonction.
+*/
+static inline void set_non_viable(int i, int j, grille g){g.cellules[i][j] = -1;}
 // teste si la cellule (i,j) de la grille g est vivante
 /**
   \brief Teste si la cellule (i,j) de la grille g est vivante. Renvoie 1 si c'est le cas, 0 sinon.
