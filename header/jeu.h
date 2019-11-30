@@ -55,4 +55,6 @@ int compte_voisins_vivants (int i, int j, grille g);
 */
 void evolue (grille *g, grille *gc);
 
+void oscillation(grille g, grille gc);
+
 #endif

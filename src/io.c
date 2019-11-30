@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 
+
 void affiche_trait (int c){
 	int i;
 	for (i=0; i<c; ++i) printf ("|---");
@@ -101,7 +102,7 @@ void debut_jeu(grille *g, grille *gc){
 				break;
 			}
 		}
-		//c = getchar();
+		c = getchar();
 	} while (c != 'q'); // touche 'q' pour quitter
 	return;
 }

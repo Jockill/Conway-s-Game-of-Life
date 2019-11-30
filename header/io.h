@@ -8,8 +8,12 @@
 #define __IO_H
 
 #include <stdio.h>
-#include "grille.h"
+#include <cairo.h>
+#include <cairo-xlib.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #include "jeu.h"
+#include "grille.h"
 
 void clear();
 
