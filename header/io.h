@@ -15,8 +15,11 @@
 #include "jeu.h"
 #include "grille.h"
 
-void clear();
 
+/**
+  \brief Affiche "oui" ou "non" en fonction d'un booléen passé en parametre. Respectivement si il vaut 1 ou 0.
+  \param int b ; int agissant comme un booléen. (valeurs possible : 0/1).
+*/
 void afficheBool(int b);
 
 // affichage d'un trait horizontal
@@ -40,13 +43,6 @@ void affiche_ligne (int c, int* ligne, grille g);
   \param grille g : Grille à afficher.
 */
 void affiche_grille (grille g);
-
-/**
-	\brief Affichage de oui ou de non en fonction du booléen passé en parametre
-	\pre b doit valoir 1 ou 0
-	\param int b : Entier se comportant comme un booléen.
-*/
-void afficheBool(int b);
 
 /**
   \brief Affiche le panneau d'informations : generation, cyclique, vieillissement

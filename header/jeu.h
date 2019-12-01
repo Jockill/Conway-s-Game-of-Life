@@ -21,12 +21,6 @@ void bellePause();
 */
 void changementGrille(grille *g, grille *gc);
 
-/**
-  \brief Inverse la valeur d'un booléen passé en parametre
-  \pre b doit valoir 1 ou 0.
-  \param int b : Booléen à inverser.
-*/
-int boolSwitch(int b);
 
 // modulo modifié pour traiter correctement les bords i=0 et j=0
 // dans le calcul des voisins avec bords cycliques
@@ -51,10 +45,22 @@ int compte_voisins_vivants (int i, int j, grille g);
 /**
   \brief Fait évoluer la grille g d'une génération.
   \param grille* g : Grille à faire évoluer.
-  \param grille* gc: Grille servant de copie a 'g'.
+  \param grille* gc: Grille servant de copie à 'g'.
 */
 void evolue (grille *g, grille *gc);
 
+/**
+  \brief Teste la grille passée en argument et revoie 1 si elle est morte, 0 si elle ne l'est pas.
+  \param grille g: grille a tester.
+*/
+int grilleMorte(grille g);
+
+
+/**
+  \brief Teste la grille pour déterminer si il y a une oscillation ou non.
+  \param grille g : grille a tester.
+  \param grille gc: grille servant de copie à 'g'
+*/
 void oscillation(grille g, grille gc);
 
 #endif

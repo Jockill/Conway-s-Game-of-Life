@@ -7,20 +7,14 @@
 #include "../header/jeu.h"
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
+
+
 
 void bellePause(){
 	printf("\nAppuyez sur entrée pour continuer...\n");
 	getchar();
 	getchar();
-}
-
-int boolSwitch(int b){
-	if(b == 1) return 0;
-	else if (b == 0) return 1;
-	else{
-		printf("boolSwitch : ERREUR\n");
-		return -1;
-	}
 }
 
 int compte_voisins_vivants (int i, int j, grille g){
@@ -96,38 +90,155 @@ void evolue (grille *g, grille *gc){
 }
 
 void changementGrille(grille *g, grille *gc){
-	int pass = 0;
-	char nom[30] = "grilles/grille_";
-	char num[3] = "";
+	printf("Entrez le nom de la grille : ");
+	char nom[50];
+	scanf("%s", nom);
 
-	do
+	if(access(nom, F_OK) != -1)
+	{ //Check si le nom entré existe
+		libere_grille(g);
+		libere_grille(gc);
+		init_grille_from_file(nom, g);
+		alloue_grille(g->nbl, g->nbc, gc);
+		printf("La grille a bien été chargée.\n");
+	}
+	else
 	{
+		printf("La grille que vous cherchez n'existe pas.\n");
+		bellePause();
 		printf("\e[1;1H\e[2J"); //Clear
-		printf("Veuillez entrer le numero de la grille a charger, ou q pour quitter : ");
-		scanf("%s", num);
+	}
+}
 
-		if(num[0] == 'q') return;
+int grilleMorte(grille g){
+	for(int y=0; y<g.nbc; y++)
+	{
+		for(int x=0; x<g.nbl; x++)
+		{
+			if(est_vivante(y, x, g) > 0) return 0; // Elle n'est pas morte
+		}
+	}
+	return 1; //Elle est morte
+}
 
-		strcat(nom, num);
-		strcat(nom, ".txt");
+void oscillation(grille g, grille gc){
+	printf("Arrivee dans oscillation\n");
+	//
+	//
+	// for(int y=0; y<g.nbl; y++)
+	// {
+	// 	for(int x=0; x<g.nbc; x++)
+	// 	{
+	// 		printf("vie : %d\n", est_vivante(y, x, g));
+	// 	}
+	// }
+	//
+	//
+	//
 
-		if(access(nom, F_OK) != -1)
-		{ //Check si le nom entré existe
-			libere_grille(g);
-			libere_grille(gc);
-			init_grille_from_file(nom, g);
-			alloue_grille(g->nbl, g->nbc, gc);
-			pass = 1;
-			strcpy(nom, "grilles/grille");
-			strcpy(num, "");
+	// Opti : Check si vieillissement on, demander confirmation
+
+	int nbGenMax = 1000;
+	int taille = g.nbc*g.nbl;
+	int historique[nbGenMax][taille];
+	// long double score; //Long double car permet de stocker le score de 4932 cellules
+	// score = 0;
+	// printf("score = %ld\n", score);
+	int pos;
+	int stop = 0;
+
+	grille avance = g;
+	grille avanceCp = gc;
+	grille *pAvance = &avance;
+	grille *pAvanceCp = &avanceCp;
+
+	printf("Debut for\n");
+	for(int p=1; p<nbGenMax; p++)
+	{
+		evolue(pAvance, pAvanceCp);
+		printf("p = %d\n", p);
+		if(grilleMorte(avance))
+		{ // Check si grille morte
+			fprintf(stderr, "Cette grille n'oscille pas car morte\n");
+			return;
 		}
 		else
-		{
-			strcpy(nom, "grilles/grille");
-			strcpy(num, "");
-			printf("La grille que vous cherchez n'existe pas.\nVeuillez vous assurer : \n1. Que vous l'avez bien enregistrée dans le format 'grille<numero>.txt'\n2. Que vous l'avez enregistrée dans <dossier_racine_du_jeu>/grilles\n");
-			bellePause();
-			printf("\e[1;1H\e[2J"); //Clear
+		{ // Remplir le tableau
+			pos = 0;
+			for(int y=0; y<avance.nbl; y++)
+			{
+				for(int x=0; x<avance.nbc; x++)
+				{
+					pos++;
+					historique[p][pos] = est_vivante(y, x, avance);
+				}
+			}
 		}
-	}while(pass == 0);
+
+		for(int g=0; g<p-1; g++)
+		{
+			stop = 0;
+			for(int i=0; i<taille; i++)
+			{
+				if(historique[g][i] == historique[p][i])
+				{
+					if(i == taille-1)
+					{
+						printf("Cette grille oscille, avec une période de %d a partir de la generation %d\n", p, g);
+						return;
+					}
+				}
+				stop = 1;
+				break;
+			}
+			if(stop) break;
+		}
+
+
+
+
+			printf("generation %d\n", p);
+		}
+	fprintf(stderr, "Cette grille n'oscille pas\n");
+	return ;
 }
+
+
+//
+// void oscillation(grille g, grille gc){
+// 	// Demander si vieillesse == 1
+//
+// 	grille avance = g;
+// 	grille avanceCp = gc;
+// 	grille *pAvance = &avance;
+// 	grille *pAvanceCp = &avanceCp;
+//
+// 	int nbGenMax = 1000;
+// 	int historique[nbGenMax];
+// 	remplirTab(avance, historique);
+//
+// 	// evolue(pAvance, pAvanceCp);
+// 	for(int p=1; p<nbGenMax; p++)
+// 	{
+// 		if(grilleMorte(avance))
+// 		{
+// 			fprintf(stderr, "Cette grille n'oscille pas car morte\n");
+// 			return ;
+// 		}
+// 		evolue(pAvance, pAvanceCp);
+// 		int *pCells = *avance.cellules;
+// 		int cells = *pCells;
+// 		historique[p] = cells;
+// 		for(int i=0; i<p-1; i++)
+// 		{
+// 			if(historique[0] == historique[p])
+// 			{
+// 				fprintf(stderr, "Cette grille a une période de %d, a partir de la %d ieme generation\n", p, i);
+// 				return;
+// 			}
+// 		}
+// 		printf("generation %d\n", p);
+// 	}
+// 	fprintf(stderr, "Cette grille n'oscille pas\n");
+// 	return ;
+// }

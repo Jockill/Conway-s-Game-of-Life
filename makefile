@@ -1,28 +1,39 @@
-FLAGS = -Iinclude -I/usr/include/cairo -lcairo -lm -lX11
+FLAGS = -g -Iinclude -I/usr/include/cairo -lcairo -lm -lX11
 
+ifeq ($(MODE),TEXTE)
+IO =
+else
+IO = GUI
+endif
 LIBPATH = ./lib/
 OBJPATH = ./obj/
 HEADPATH = ./header/
-ifeq ($(MODE),TEXTE)
 SRCPATH = ./src/
-else
-SRCPATH = ./srcGUI/
-endif
 
 
-
+ifeq ($(MODE),TEXTE)
 main: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)io.o $(OBJPATH)grille.o
 	gcc $^ $(FLAGS) -o jeuDeLaVie
-
-
 ./obj/main.o: $(SRCPATH)main.c $(HEADPATH)grille.h $(HEADPATH)io.h $(HEADPATH)jeu.h
 	mkdir -p $(OBJPATH)
-	gcc $(FLAGS) -c $(SRCPATH)main.c -o $@;\
+	gcc $(FLAGS) -c $(SRCPATH)main.c -o $@;
+
+else
+main: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)ioGUI.o $(OBJPATH)grille.o
+	gcc $^ $(FLAGS) -o jeuDeLaVie
+./obj/main.o: $(SRCPATH)main.c $(HEADPATH)grille.h $(HEADPATH)ioGUI.h $(HEADPATH)jeu.h
+	mkdir -p $(OBJPATH)
+	gcc $(FLAGS) -c $(SRCPATH)main.c -o $@;
+endif
+
+# ifeq ($(MODE),TEXTE)
+# endif
+
+
 
 
 ./obj/%.o: $(SRCPATH)%.c $(HEADPATH)%.h
 	gcc $(FLAGS) -c $< -o $@
-
 
 lib: $(OBJPATH)main.o $(OBJPATH)jeu.o $(OBJPATH)io.o $(OBJPATH)grille.o
 	mkdir -p $(LIBPATH)

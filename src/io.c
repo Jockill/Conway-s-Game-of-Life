@@ -88,6 +88,15 @@ void debut_jeu(grille *g, grille *gc){
 				evolue(g,gc);
 				clear();
 				affiche_header(*g);
+
+				// for(int y=0; y<g->nbl; y++)
+				// {
+				// 	for(int x=0; x<g->nbc; x++)
+				// 	{
+				// 		printf("vie : %d\n", est_vivante(y, x, *g));
+				// 	}
+				// }
+
 				affiche_grille(*g);
 				break;
 			}
@@ -96,6 +105,9 @@ void debut_jeu(grille *g, grille *gc){
 				changementGrille(g, gc);
 				break;
 			}
+			case 'o':
+				oscillation(*g, *gc);
+			break;
 			default :
 			{ // touche non traitée
 				printf("\n\e[1A");
